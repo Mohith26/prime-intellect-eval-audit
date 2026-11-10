@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>fiscal-docs-qa · Audit | Prime Intellect</title>
+<link rel="icon" href="assets/pi-mark.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="sb-top">
+      <img class="wordmark" src="assets/prime-intellect-wordmark.svg" alt="Prime Intellect" />
+      <button class="sb-collapse" aria-label="Collapse sidebar"><i data-lucide="panel-left"></i></button>
+    </div>
+    <nav class="sb-nav">
+      <a class="sb-item"><i data-lucide="house"></i>Home</a>
+      <div class="sb-label">Lab</div>
+      <a class="sb-item active"><i data-lucide="codesandbox"></i>Environments Hub</a>
+      <a class="sb-item"><i data-lucide="chart-no-axes-column"></i>Evaluations</a>
+      <a class="sb-item"><i data-lucide="waypoints"></i>Training</a>
+      <a class="sb-item"><i data-lucide="cloud-upload"></i>Deployments</a>
+      <a class="sb-item"><i data-lucide="list-tree"></i>Traces</a>
+      <div class="sb-label">Compute</div>
+      <a class="sb-item"><i data-lucide="cpu"></i>On-Demand GPUs</a>
+      <a class="sb-item"><i data-lucide="calendar"></i>Reserved Clusters</a>
+      <a class="sb-item"><i data-lucide="square-terminal"></i>Sandboxes</a>
+      <a class="sb-item"><i data-lucide="network"></i>Team Instances</a>
+      <div class="sb-label">Team</div>
+      <a class="sb-item"><i data-lucide="circle-user"></i>Team Settings</a>
+      <a class="sb-item"><i data-lucide="users"></i>Members</a>
+      <a class="sb-item"><i data-lucide="credit-card"></i>Billing</a>
+      <a class="sb-item"><i data-lucide="key-round"></i>Keys &amp; Secrets</a>
+      <div class="sb-label">Support</div>
+      <a class="sb-item"><i data-lucide="send"></i>Chat</a>
+      <a class="sb-item"><i data-lucide="book-open"></i>Documentation<i class="ext" data-lucide="external-link"></i></a>
+      <div class="sb-label sb-admin">Admin <i data-lucide="chevron-down"></i></div>
+    </nav>
+    <div class="sb-legal"><span>Terms of Service</span><span>Privacy Policy</span></div>
+    <div class="sb-team">
+      <i data-lucide="users-round"></i>
+      <div><div class="t1">PI Evals</div><div class="t2">Team</div></div>
+      <i class="sb-chev" data-lucide="chevrons-up-down"></i>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="env-head">
+      <button class="back" aria-label="Back"><i data-lucide="chevron-left"></i></button>
+      <div class="env-title">
+        <div class="row1"><h1 id="envName">fiscal-docs-qa</h1><i class="copy" data-lucide="copy"></i></div>
+        <div class="row2"><img class="owner-mark" src="assets/pi-mark.svg" alt="" /><span id="envOwner">primeintellect</span></div>
+      </div>
+      <div class="head-actions">
+        <button class="btn sec"><i data-lucide="star"></i>Star<span class="count">12</span></button>
+        <button class="btn sec"><i data-lucide="workflow"></i>Train<i class="chev" data-lucide="chevron-down"></i></button>
+        <button class="btn sec"><i data-lucide="chart-no-axes-column"></i>Evaluate<i class="chev" data-lucide="chevron-down"></i></button>
+        <button class="btn primary"><i data-lucide="download"></i>Install</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <nav class="tabs">
+        <a class="tab"><i data-lucide="code"></i>Code</a>
+        <a class="tab"><i data-lucide="chart-no-axes-column"></i>Evaluations</a>
+        <a class="tab active"><i data-lucide="scan-search"></i>Audit<span class="new">New</span></a>
+        <a class="tab"><i data-lucide="square-asterisk"></i>Secrets</a>
+        <a class="tab"><i data-lucide="settings"></i>Settings</a>
+      </nav>
+
+      <div class="toolbar">
+        <button class="select mono" id="versionSel">0.2.1 <span class="dim">(latest)</span><i data-lucide="chevron-down"></i></button>
+        <div class="toolbar-text" id="scopeText"></div>
+        <div class="spacer"></div>
+        <span class="chip"><span class="dot"></span>Simulated runs</span>
+        <button class="btn outline"><i data-lucide="file-down"></i>Export report</button>
+        <button class="btn primary" id="rerun"><i data-lucide="refresh-cw"></i>Re-run audit</button>
+      </div>
+
+      <section class="kpis" id="kpis"></section>
+
+      <section class="grid2">
+        <div class="card flagged">
+          <div class="card-head">
+            <div>
+              <div class="card-title">Flagged examples</div>
+              <div class="card-sub">Examples where the published runs disagree with the reference or the grader. Select one to see the evidence.</div>
+            </div>
+            <div class="thresh">
+              <label for="keyT">Re-key at posterior</label>
+              <input type="range" id="keyT" min="0.5" max="0.99" step="0.01" value="0.9" />
+              <span class="mono" id="keyTv">0.90</span>
+            </div>
+          </div>
+          <div class="seg" id="filters"></div>
+          <div class="tbl-wrap"><table class="tbl" id="flagTbl"></table></div>
+        </div>
+        <div class="card inspector" id="inspector"></div>
+      </section>
+
+      <section class="card lb">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Leaderboard after audit</div>
+            <div class="card-sub" id="lbSub"></div>
+          </div>
+        </div>
+        <div class="tbl-wrap"><table class="tbl lbt" id="lbTbl"></table></div>
+      </section>
+
+      <section class="grid3">
+        <div class="card">
+          <div class="card-head"><div><div class="card-title">Solution sources</div><div class="card-sub">Mantel-Haenszel odds of reward when a rollout fetched the domain, compared within the same model and example.</div></div></div>
+          <table class="tbl compact" id="srcTbl"></table>
+        </div>
+        <div class="card">
+          <div class="card-head"><div><div class="card-title">Test information</div><div class="card-sub" id="infoSub"></div></div></div>
+          <div id="infoChart" class="chart"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div><div class="card-title">Unexpected passes</div><div class="card-sub">Rewarded rollouts the ability model gives under 8% probability.</div></div></div>
+          <table class="tbl compact" id="surTbl"></table>
+        </div>
+      </section>
+
+      <footer class="foot">Unofficial concept demo by Mohith Gajjela. Not affiliated with Prime Intellect. Synthetic data.</footer>
+    </div>
+  </main>
+</div>
+<div class="tip" id="tip"></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
